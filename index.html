@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MONO SYSTEM - ADVANCED PRODUCT HUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;700;900&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <style>
         :root {
@@ -38,7 +41,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -68,7 +71,7 @@
             padding: 18px 60px 18px 25px;
             border-radius: 50px;
             border: 2px solid var(--glass-border);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             font-size: 1.1rem;
             outline: none;
@@ -78,7 +81,7 @@
 
         .search-bar:focus {
             border-color: var(--primary);
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .scanner-btn {
@@ -100,7 +103,9 @@
             transition: transform 0.2s;
         }
 
-        .scanner-btn:active { transform: translateY(-50%) scale(0.9); }
+        .scanner-btn:active {
+            transform: translateY(-50%) scale(0.9);
+        }
 
         /* Multi-select Filters */
         .filters-grid {
@@ -134,7 +139,7 @@
         }
 
         .dropdown-trigger {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 10px;
             border-radius: 8px;
             display: flex;
@@ -157,10 +162,12 @@
             overflow-y: auto;
             z-index: 100;
             display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
-        .dropdown-menu.show { display: block; }
+        .dropdown-menu.show {
+            display: block;
+        }
 
         .dropdown-item {
             display: flex;
@@ -168,7 +175,9 @@
             transition: background 0.2s;
         }
 
-        .dropdown-item:hover { background: rgba(255,255,255,0.05); }
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
 
         .dropdown-item label {
             user-select: none;
@@ -194,7 +203,7 @@
             padding: 6px 10px;
             border-radius: 6px;
             border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             color: white;
             outline: none;
         }
@@ -225,7 +234,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            flex: 0 0 auto; /* Allow dynamic width */
+            flex: 0 0 auto;
+            /* Allow dynamic width */
             margin-bottom: 20px;
         }
 
@@ -238,27 +248,47 @@
             font-weight: 800;
             font-size: 0.9rem;
             text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .product-items-flex {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
+            /* Default to wrap for desktop */
             gap: 15px;
             width: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 10px 0 15px;
-            scrollbar-width: auto; /* More visible scrollbar */
-            scrollbar-color: var(--primary) rgba(255,255,255,0.1);
-            touch-action: pan-x;
-            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
         }
 
-        .product-items-flex::-webkit-scrollbar { height: 8px; }
-        .product-items-flex::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .product-items-flex::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        @media (max-width: 768px) {
+            .product-items-flex {
+                flex-wrap: nowrap !important;
+                /* Slider ONLY on mobile */
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: 10px 0 15px;
+                touch-action: pan-x;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        .product-items-flex::-webkit-scrollbar {
+            height: 8px;
+            display: none;
+        }
+
+        /* Hide on desktop wrap */
+        @media (max-width: 768px) {
+            .product-items-flex::-webkit-scrollbar {
+                display: block;
+                height: 8px;
+            }
+
+            .product-items-flex::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 10px;
+            }
+        }
 
         .cat-d-group {
             position: relative;
@@ -266,7 +296,8 @@
             flex-direction: column;
             gap: 10px;
             margin-bottom: 30px;
-            flex: 0 0 auto; /* Allow dynamic width */
+            flex: 0 0 auto;
+            /* Allow dynamic width */
             max-width: 100%;
         }
 
@@ -284,18 +315,35 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             border: none;
             opacity: 0.8;
             transition: all 0.3s;
         }
-        .nav-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
-        .nav-prev { left: -15px; }
-        .nav-next { right: -15px; }
+
+        .nav-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-prev {
+            left: -15px;
+        }
+
+        .nav-next {
+            right: -15px;
+        }
 
         @media (max-width: 768px) {
-            .nav-btn { display: none; }
-            .cat-d-group { width: 100%; } /* Stack groups on mobile */
+            .nav-btn {
+                display: none;
+            }
+
+            .cat-d-group {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
             .product-card {
                 flex: 0 0 85% !important;
                 padding: 10px;
@@ -309,8 +357,14 @@
             }
         }
 
-        .product-items-flex::-webkit-scrollbar { height: 6px; }
-        .product-items-flex::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .product-items-flex::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .product-items-flex::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
 
         .product-card {
             flex: 0 0 280px;
@@ -322,23 +376,27 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             user-select: none;
             transition: transform 0.2s;
         }
 
         @media (max-width: 768px) {
             .product-card {
-                flex: 0 0 70%; /* 70% width on mobile */
+                flex: 0 0 70%;
+                /* 70% width on mobile */
                 padding: 10px;
             }
+
             .img-stack {
                 height: 150px !important;
             }
+
             .category-header {
                 font-size: 1.4rem;
                 padding: 10px;
             }
+
             .subcat-header {
                 font-size: 0.8rem;
             }
@@ -346,14 +404,29 @@
 
         /* Printing Styles */
         @media print {
-            body { background: white !important; color: black !important; }
-            .navbar, .hero, .filters-grid, .load-more-trigger, .scroll-top, .print-fab { display: none !important; }
-            
-            #mainContainer { width: 100% !important; padding: 0 !important; margin: 0 !important; }
-            
-            .category-header { 
-                background: #f1f5f9 !important; 
-                color: black !important; 
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .navbar,
+            .hero,
+            .filters-grid,
+            .load-more-trigger,
+            .scroll-top,
+            .print-fab {
+                display: none !important;
+            }
+
+            #mainContainer {
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .category-header {
+                background: #f1f5f9 !important;
+                color: black !important;
                 border: 2px solid #334155 !important;
                 margin: 20px 0 10px !important;
                 font-size: 1.4rem !important;
@@ -361,25 +434,39 @@
                 page-break-after: avoid;
             }
 
-            .product-grid { 
+            .product-grid {
                 display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important; 
-                gap: 10px !important; 
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 10px !important;
             }
 
-            .product-card { 
-                border: 1px solid #cbd5e1 !important; 
+            .product-card {
+                border: 1px solid #cbd5e1 !important;
                 box-shadow: none !important;
                 break-inside: avoid;
                 padding: 8px !important;
             }
 
-            .img-stack { height: 120px !important; }
-            .name-ar { font-size: 0.75rem !important; }
-            .name-en { font-size: 0.65rem !important; }
-            .price-val { font-size: 1rem !important; }
+            .img-stack {
+                height: 120px !important;
+            }
 
-            @page { margin: 10mm; size: A4; }
+            .name-ar {
+                font-size: 0.75rem !important;
+            }
+
+            .name-en {
+                font-size: 0.65rem !important;
+            }
+
+            .price-val {
+                font-size: 1rem !important;
+            }
+
+            @page {
+                margin: 10mm;
+                size: A4;
+            }
         }
 
         /* Card Styles */
@@ -395,7 +482,9 @@
             cursor: pointer;
         }
 
-        .product-card:hover { transform: translateY(-5px); }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
 
         .img-stack {
             width: 100%;
@@ -425,10 +514,29 @@
             border-radius: 10px;
         }
 
-        .card-details { display: flex; flex-direction: column; gap: 4px; }
-        .brand-text { font-size: 0.7rem; color: var(--primary); font-weight: 900; }
-        .name-ar { font-size: 0.9rem; font-weight: 900; line-height: 1.3; }
-        .name-en { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-text {
+            font-size: 0.7rem;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .name-ar {
+            font-size: 0.9rem;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+
+        .name-en {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+        }
 
         .price-row {
             margin-top: auto;
@@ -447,13 +555,17 @@
             gap: 4px;
         }
 
-        .riyal-img { width: 14px; height: 14px; filter: contrast(0.5); }
+        .riyal-img {
+            width: 14px;
+            height: 14px;
+            filter: contrast(0.5);
+        }
 
         /* Scanner Modal */
         #scannerModal {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 10000;
             display: none;
             flex-direction: column;
@@ -470,7 +582,9 @@
             position: relative;
         }
 
-        #reader { width: 100%; }
+        #reader {
+            width: 100%;
+        }
 
         .close-scanner {
             position: absolute;
@@ -495,7 +609,9 @@
         }
 
         /* Scroll Top & Print FAB */
-        .scroll-top, .print-fab, .view-toggle-btn {
+        .scroll-top,
+        .print-fab,
+        .view-toggle-btn {
             position: fixed;
             right: 20px;
             width: 55px;
@@ -506,16 +622,28 @@
             justify-content: center;
             cursor: pointer;
             z-index: 5000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             border: none;
             color: white;
             font-size: 22px;
             transition: all 0.3s;
         }
 
-        .scroll-top { bottom: 20px; background: var(--primary); display: none; }
-        .print-fab { bottom: 90px; background: #ef4444; }
-        .view-toggle-btn { bottom: 160px; background: #f59e0b; }
+        .scroll-top {
+            bottom: 20px;
+            background: var(--primary);
+            display: none;
+        }
+
+        .print-fab {
+            bottom: 90px;
+            background: #ef4444;
+        }
+
+        .view-toggle-btn {
+            bottom: 160px;
+            background: #f59e0b;
+        }
 
         .reset-btn {
             background: #ef4444;
@@ -528,7 +656,11 @@
             transition: 0.3s;
             margin-top: 10px;
         }
-        .reset-btn:hover { background: #dc2626; transform: scale(1.05); }
+
+        .reset-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
 
         /* Magazine Controls */
         .mag-nav-arrow {
@@ -537,7 +669,7 @@
             transform: translateY(-50%);
             width: 60px;
             height: 100px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: none;
             color: white;
@@ -550,16 +682,27 @@
             transition: all 0.3s;
         }
 
-        .mag-nav-arrow:hover { background: rgba(255,255,255,0.2); width: 80px; }
-        .mag-nav-arrow.left { left: 0; border-radius: 0 50px 50px 0; }
-        .mag-nav-arrow.right { right: 0; border-radius: 50px 0 0 50px; }
+        .mag-nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.2);
+            width: 80px;
+        }
+
+        .mag-nav-arrow.left {
+            left: 0;
+            border-radius: 0 50px 50px 0;
+        }
+
+        .mag-nav-arrow.right {
+            right: 0;
+            border-radius: 50px 0 0 50px;
+        }
 
         .mag-page-indicator {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             padding: 8px 20px;
             border-radius: 30px;
             font-weight: 900;
@@ -578,25 +721,44 @@
                 padding-bottom: 15px !important;
                 scrollbar-width: none;
             }
-            .product-grid::-webkit-scrollbar { display: none; }
-            .product-card, .blob-title-card {
-                flex: 0 0 70% !important; 
+
+            .product-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .product-card,
+            .blob-title-card {
+                flex: 0 0 70% !important;
                 scroll-snap-align: center !important;
             }
-            .category-header { font-size: 1.2rem !important; grid-column: auto !important; }
-            .magazine-page-view { 
-                padding: 20px !important; 
-                margin: 20px 15px 80px !important; 
+
+            .category-header {
+                font-size: 1.2rem !important;
+                grid-column: auto !important;
+            }
+
+            .magazine-page-view {
+                padding: 20px !important;
+                margin: 20px 15px 80px !important;
                 min-height: 600px !important;
                 border-radius: 5px !important;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
             }
         }
 
-        .print-fab:hover, .view-toggle-btn:hover, .scroll-top:hover { transform: scale(1.1); }
-        .print-fab:hover, .view-toggle-btn:hover { transition: 0.2s; }
+        .print-fab:hover,
+        .view-toggle-btn:hover,
+        .scroll-top:hover {
+            transform: scale(1.1);
+        }
+
+        .print-fab:hover,
+        .view-toggle-btn:hover {
+            transition: 0.2s;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="scannerModal">
@@ -613,7 +775,8 @@
 
     <div class="hero">
         <div class="search-container">
-            <input type="text" id="globalSearch" class="search-bar" placeholder="Search by name, code, or scan barcode..." oninput="triggerFilter()">
+            <input type="text" id="globalSearch" class="search-bar"
+                placeholder="Search by name, code, or scan barcode..." oninput="triggerFilter()">
             <button class="scanner-btn" onclick="startScanner()">📷</button>
         </div>
     </div>
@@ -624,7 +787,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Brands <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search brands..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search brands..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -634,7 +798,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Cat A <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search categories..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search categories..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -644,7 +809,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Cat B <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search categories..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search categories..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -654,7 +820,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Cat C <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search categories..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search categories..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -664,7 +831,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Cat D <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search sub-cats..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search sub-cats..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -674,7 +842,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Cat E <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search categories..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search categories..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -684,7 +853,8 @@
             <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
                 <div class="dropdown-trigger">Select Mans <span class="selected-count">(0)</span> ▾</div>
                 <div class="dropdown-menu" onclick="event.stopPropagation()">
-                    <div class="dropdown-search"><input type="text" placeholder="Search manufactures..." oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-search"><input type="text" placeholder="Search manufactures..."
+                            oninput="filterDropdownItems(this)"></div>
                     <div class="dropdown-list"></div>
                 </div>
             </div>
@@ -710,6 +880,7 @@
             "https://raw.githubusercontent.com/meralmohamed121022-cyber/offerstestgit/refs/heads/main/products2.json"
         ];
         const WORKER_IMG = "https://online.meralmohamed121022.workers.dev/api/product?code=";
+        const WORKER_TOKEN = ""; // 👈 ضع هنا التوكن الخاص بك (x-session-token) إذا كان الوركر يحتاجه
         const RIYAL_SVG = "https://www.sama.gov.sa/ar-sa/Currency/Documents/Saudi_Riyal_Symbol-2.svg";
 
         let masterData = [];
@@ -718,16 +889,16 @@
         const BATCH_SIZE = 50;
         let isPageMode = false;
         let currentPage = 1;
-        const ITEMS_PER_PAGE = 16; 
+        const ITEMS_PER_PAGE = 16;
 
-        let selectedFilters = { 
-            "Brand": [], 
-            "Category Level A": [], 
-            "Category Level B": [], 
-            "Category Level C": [], 
-            "Category Level D": [], 
-            "Category Level E": [], 
-            "Manufacture": [] 
+        let selectedFilters = {
+            "Brand": [],
+            "Category Level A": [],
+            "Category Level B": [],
+            "Category Level C": [],
+            "Category Level D": [],
+            "Category Level E": [],
+            "Manufacture": []
         };
 
         async function bootstrap() {
@@ -736,7 +907,7 @@
                 const data = await Promise.all(responses.map(r => r.json()));
                 masterData = data.flat();
                 filteredData = [...masterData];
-                
+
                 initFilters();
                 renderBatch();
                 setupInfiniteScroll();
@@ -744,14 +915,14 @@
         }
 
         function initFilters() {
-            const filterMap = { 
-                "Brand": new Set(), 
-                "Category Level A": new Set(), 
-                "Category Level B": new Set(), 
-                "Category Level C": new Set(), 
-                "Category Level D": new Set(), 
-                "Category Level E": new Set(), 
-                "Manufacture": new Set() 
+            const filterMap = {
+                "Brand": new Set(),
+                "Category Level A": new Set(),
+                "Category Level B": new Set(),
+                "Category Level C": new Set(),
+                "Category Level D": new Set(),
+                "Category Level E": new Set(),
+                "Manufacture": new Set()
             };
             masterData.forEach(p => {
                 for (let key in filterMap) { if (p[key]) filterMap[key].add(p[key]); }
@@ -761,7 +932,7 @@
                 const field = box.dataset.field;
                 const list = box.querySelector('.dropdown-list');
                 const sortedItems = Array.from(filterMap[field]).sort();
-                
+
                 sortedItems.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'dropdown-item';
@@ -776,8 +947,8 @@
 
         function toggleDropdown(el, event) {
             if (event.target.closest('.dropdown-menu')) return;
-            document.querySelectorAll('.dropdown-menu').forEach(m => { 
-                if(m !== el.querySelector('.dropdown-menu')) m.classList.remove('show'); 
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if (m !== el.querySelector('.dropdown-menu')) m.classList.remove('show');
             });
             el.querySelector('.dropdown-menu').classList.toggle('show');
         }
@@ -793,7 +964,7 @@
         function onFilterChange(cb, field) {
             if (cb.checked) selectedFilters[field].push(cb.value);
             else selectedFilters[field] = selectedFilters[field].filter(v => v !== cb.value);
-            
+
             cb.closest('.filter-box').querySelector('.selected-count').textContent = `(${selectedFilters[field].length})`;
             applyAllFilters();
         }
@@ -803,12 +974,12 @@
 
         function applyAllFilters() {
             const q = document.getElementById('globalSearch').value.toLowerCase();
-            
+
             filteredData = masterData.filter(p => {
-                const mq = !q || p.Code.toString().includes(q) || 
-                          (p["Item Description"]||"").toLowerCase().includes(q) || 
-                          (p["أسم المنتج"]||"").toLowerCase().includes(q);
-                
+                const mq = !q || p.Code.toString().includes(q) ||
+                    (p["Item Description"] || "").toLowerCase().includes(q) ||
+                    (p["أسم المنتج"] || "").toLowerCase().includes(q);
+
                 let mf = true;
                 for (let field in selectedFilters) {
                     if (selectedFilters[field].length > 0 && !selectedFilters[field].includes(p[field])) { mf = false; break; }
@@ -827,7 +998,7 @@
             for (let field in selectedFilters) {
                 selectedFilters[field] = [];
                 const dropdown = document.querySelector(`.filter-box[data-field="${field}"]`);
-                if(dropdown) {
+                if (dropdown) {
                     dropdown.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
                     dropdown.querySelector('.selected-count').textContent = '(0)';
                 }
@@ -841,7 +1012,7 @@
             arrows.forEach(a => a.style.display = isPageMode ? 'flex' : 'none');
             document.getElementById('magIndicator').style.display = isPageMode ? 'block' : 'none';
             document.getElementById('loadMoreTrigger').style.display = isPageMode ? 'none' : 'block';
-            
+
             if (isPageMode) {
                 document.body.style.background = "linear-gradient(45deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)";
             } else {
@@ -898,8 +1069,8 @@
             items.forEach(p => {
                 const a = p["Category Level A"] || "UNCATEGORIZED";
                 const d = p["Category Level D"] || "OTHER";
-                if(!groups[a]) groups[a] = {};
-                if(!groups[a][d]) groups[a][d] = [];
+                if (!groups[a]) groups[a] = {};
+                if (!groups[a][d]) groups[a][d] = [];
                 groups[a][d].push(p);
             });
 
@@ -922,17 +1093,25 @@
 
                 Object.entries(subCats).forEach(([catD, itemsList]) => {
                     const colorD = getColor(catD + "sub");
-                    
+
                     const groupDiv = document.createElement('div');
                     groupDiv.className = 'cat-d-group';
-                    
+
+                    // Logic: Desktop group width = count * cardWidth (up to 4)
+                    const cardWidth = 295; // Card (280) + gap (15)
+                    const desktopCount = Math.min(itemsList.length, 4);
+                    if (!isPageMode) {
+                        groupDiv.style.width = `calc(${desktopCount} * ${cardWidth}px)`;
+                        groupDiv.style.maxWidth = "100%";
+                    }
+
                     groupDiv.innerHTML = `
                         <div class="subcat-header" style="background:${colorD}">${catD}</div>
                         <button class="nav-btn nav-prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">❮</button>
                         <div class="product-items-flex"></div>
                         <button class="nav-btn nav-next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">❯</button>
                     `;
-                    
+
                     const flexBox = groupDiv.querySelector('.product-items-flex');
                     itemsList.forEach(main => {
                         const brand = main.Brand || 'Generic';
@@ -940,7 +1119,7 @@
                         card.className = 'product-card';
                         if (isPageMode) card.style.cssText = "border:1px solid #cbd5e1; box-shadow:none; padding:8px; width:220px;";
                         card.onclick = () => window.open(`https://www.al-dawaa.com/en/p/${main.Code}`, '_blank');
-                        
+
                         const nameAr = main["أسم المنتج"] || main["Item Name Ar"] || main["Product Name Ar"];
                         card.innerHTML = `
                             <div class="img-stack" style="${isPageMode ? 'height:120px;' : ''}">
@@ -967,15 +1146,67 @@
 
         function getBestImg(p) {
             let url = p.itemurl || p.itemURL || p.Image || "";
+            if (!url) return `https://via.placeholder.com/1x1?text=FETCHING_${p.Code}`;
             if (url.startsWith("//")) url = "https:" + url;
-            return url || 'https://via.placeholder.com/300?text=NO+IMAGE';
+            return url;
         }
 
         function imgErr(img, code) {
-            if (img.dataset.triedWorker) { img.src = 'https://via.placeholder.com/300?text=NO+IMAGE'; return; }
-            img.dataset.triedWorker = "true";
-            fetch(WORKER_IMG + code).then(r => r.json()).then(d => { if(d.image_url) img.src = d.image_url; });
+            // Stage 1: Immediate Worker Fetch (Primary API Search)
+            if (!img.dataset.triedWorker) {
+                img.dataset.triedWorker = "true";
+                const headers = {};
+                if (WORKER_TOKEN) headers['x-session-token'] = WORKER_TOKEN;
+                
+                fetch(WORKER_IMG + code, { headers })
+                    .then(r => r.json())
+                    .then(d => { 
+                        if (d.image_url && d.image_url !== img.src) {
+                            img.src = d.image_url; 
+                        } else {
+                            tryFixMirror(img);
+                        }
+                    })
+                    .catch(() => tryFixMirror(img));
+                return;
+            }
+
+            // Stage 2: Fallback Mirror Fix
+            tryFixMirror(img);
         }
+
+        function tryFixMirror(img) {
+            if (!img.dataset.triedFix) {
+                img.dataset.triedFix = "true";
+                let src = img.src;
+                if (src.includes('al-dawaa.com')) {
+                    img.src = src.replace(/stgprevapi\.al-dawaa\.com|medias\.al-dawaa\.com/g, 'www.al-dawaa.com');
+                    return;
+                }
+            }
+            triggerContextSearch(img);
+        }
+
+        function triggerContextSearch(img) {
+            if (!img.dataset.triedContext && img.src.includes('context=')) {
+                img.dataset.triedContext = "true";
+                const context = img.src.split('context=')[1];
+                if (context) {
+                    img.src = `https://www.al-dawaa.com/medias/?context=${context}`;
+                    return;
+                }
+            }
+            // Final fallback to placeholder
+            img.src = 'https://via.placeholder.com/300?text=NO+IMAGE';
+        }
+
+        // Add a global image handler to fix referrer issues
+        document.addEventListener('DOMContentLoaded', () => {
+            const meta = document.createElement('meta');
+            meta.name = "referrer";
+            meta.content = "no-referrer-when-downgrade";
+            document.head.appendChild(meta);
+        });
 
         // Infinite Scroll
         function setupInfiniteScroll() {
@@ -1044,7 +1275,7 @@
                 activeSlider.style.scrollSnapType = 'x mandatory';
             }
         });
-        
+
         document.addEventListener('mouseup', () => {
             if (!isDown) return;
             isDown = false;
@@ -1058,7 +1289,7 @@
             if (!isDown || !activeSlider) return;
             moveCount++;
             const x = e.pageX - activeSlider.offsetLeft;
-            const walk = (x - startX) * 2; 
+            const walk = (x - startX) * 2;
             activeSlider.scrollLeft = scrollLeft - walk;
         });
 
@@ -1072,4 +1303,5 @@
         bootstrap();
     </script>
 </body>
+
 </html>
