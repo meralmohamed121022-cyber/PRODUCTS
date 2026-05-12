@@ -404,69 +404,89 @@
 
         /* Printing Styles */
         @media print {
-            body {
-                background: white !important;
-                color: black !important;
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; margin: 0 !important; }
+            
+            .navbar, .hero, .filters-grid, .load-more-trigger, .scroll-top, .print-fab, .nav-btn, .mag-nav-arrow, .mag-page-indicator, .view-toggle-btn { 
+                display: none !important; 
             }
-
-            .navbar,
-            .hero,
-            .filters-grid,
-            .load-more-trigger,
-            .scroll-top,
-            .print-fab {
-                display: none !important;
+            
+            #mainContainer { 
+                width: 100% !important; 
+                padding: 0 !important; 
+                margin: 0 !important; 
+                position: relative !important;
+                top: 0 !important;
             }
-
-            #mainContainer {
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-
-            .category-header {
-                background: #f1f5f9 !important;
-                color: black !important;
-                border: 2px solid #334155 !important;
-                margin: 20px 0 10px !important;
-                font-size: 1.4rem !important;
-                padding: 10px !important;
-                page-break-after: avoid;
-            }
-
+            
             .product-grid {
+                display: block !important;
+                width: 100% !important;
+                margin-top: 0 !important;
+            }
+
+            .cat-d-group {
+                display: block !important;
+                width: 100% !important;
+                break-inside: auto !important; /* Allow group to split if needed to fill space */
+                margin-bottom: 20px !important;
+            }
+
+            .product-items-flex {
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr) !important;
                 gap: 10px !important;
+                width: 100% !important;
+            }
+
+            .category-header {
+                background: #334155 !important;
+                color: white !important;
+                padding: 8px 12px !important;
+                font-size: 1.1rem !important;
+                border-radius: 4px !important;
+                margin: 10px 0 8px !important; /* Reduced margin */
+                width: 100% !important;
+                display: block !important;
+                break-after: avoid !important;
+            }
+            
+            /* Remove top margin from the very first header to prevent white page */
+            .cat-d-group:first-child .category-header {
+                margin-top: 0 !important;
+            }
+
+            .subcat-header {
+                font-size: 0.75rem !important;
+                padding: 4px 10px !important;
+                margin-bottom: 6px !important;
+                background: #64748b !important;
+                color: white !important;
+                width: fit-content !important;
+                border-radius: 3px !important;
+                break-after: avoid !important;
             }
 
             .product-card {
+                width: 100% !important;
+                min-width: 0 !important;
                 border: 1px solid #cbd5e1 !important;
                 box-shadow: none !important;
-                break-inside: avoid;
                 padding: 8px !important;
+                height: auto !important;
+                margin: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                break-inside: avoid !important; /* Prevent card from splitting */
             }
 
-            .img-stack {
-                height: 120px !important;
-            }
+            .img-stack { height: 100px !important; width: 100% !important; }
+            .name-ar { font-size: 0.75rem !important; margin-top: 5px !important; min-height: 2em !important; }
+            .name-en { font-size: 0.6rem !important; }
+            .price-val { font-size: 0.9rem !important; }
+            .riyal-img { width: 12px !important; height: 12px !important; }
 
-            .name-ar {
-                font-size: 0.75rem !important;
-            }
-
-            .name-en {
-                font-size: 0.65rem !important;
-            }
-
-            .price-val {
-                font-size: 1rem !important;
-            }
-
-            @page {
-                margin: 10mm;
-                size: A4;
-            }
+            @page { margin: 10mm; size: A4; }
         }
 
         /* Card Styles */
