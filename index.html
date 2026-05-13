@@ -84,6 +84,39 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-top: 10px;
+            max-height: 450px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .suggestion-item {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .suggestion-item:hover { background: #f8fafc; }
+        .suggestion-img { width: 45px; height: 45px; object-fit: contain; border-radius: 6px; background: white; padding: 2px; border: 1px solid #e2e8f0; }
+        .suggestion-info { flex: 1; }
+        .suggestion-name { font-size: 0.9rem; font-weight: 600; color: #1e293b; display: block; }
+        .suggestion-meta { font-size: 0.75rem; color: #64748b; }
+        .suggestion-price { font-weight: 700; color: #2563eb; font-size: 0.85rem; }
+        .suggestion-type { font-size: 0.65rem; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
+
         .scanner-btn {
             position: absolute;
             right: 15px;
@@ -498,7 +531,8 @@
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            border-color: #2563eb;
         }
 
         .img-stack {
@@ -789,9 +823,10 @@
     </nav>
 
     <div class="hero">
-        <div class="search-container">
-            <input type="text" id="globalSearch" class="search-bar"
-                placeholder="Search by name, code, or scan barcode..." oninput="triggerFilter()">
+        <div class="search-container search-box">
+            <input type="text" id="searchInput" class="search-bar"
+                placeholder="Search by name, code, or scan barcode..." oninput="handleSmartSearch(this.value)">
+            <div id="searchSuggestions" class="search-suggestions"></div>
             <button class="scanner-btn" onclick="startScanner()">📷</button>
         </div>
     </div>
@@ -895,7 +930,7 @@
             "https://raw.githubusercontent.com/meralmohamed121022-cyber/offerstestgit/refs/heads/main/products2.json"
         ];
         const WORKER_IMG = "https://online.meralmohamed121022.workers.dev/api/product?code=";
-        const WORKER_TOKEN = ""; // 👈 ضع هنا التوكن الخاص بك (x-session-token) إذا كان الوركر يحتاجه
+        const WORKER_TOKEN = ""; 
         const RIYAL_SVG = "https://www.sama.gov.sa/ar-sa/Currency/Documents/Saudi_Riyal_Symbol-2.svg";
 
         let masterData = [];
@@ -981,14 +1016,95 @@
             else selectedFilters[field] = selectedFilters[field].filter(v => v !== cb.value);
 
             cb.closest('.filter-box').querySelector('.selected-count').textContent = `(${selectedFilters[field].length})`;
-            applyAllFilters();
+            filterData();
         }
 
-        let filterTimeout;
-        function triggerFilter() { clearTimeout(filterTimeout); filterTimeout = setTimeout(applyAllFilters, 300); }
+        function handleSmartSearch(query) {
+            const suggestionsEl = document.getElementById('searchSuggestions');
+            if (!query || query.length < 1) {
+                suggestionsEl.style.display = 'none';
+                filterData();
+                return;
+            }
 
-        function applyAllFilters() {
-            const q = document.getElementById('globalSearch').value.toLowerCase();
+            const q = query.toLowerCase();
+            
+            // Fuzzy Scoring Logic with Code Priority
+            const scored = masterData.map(p => {
+                let score = 0;
+                const codeStr = (p.Code || "").toString().toLowerCase();
+                const nameAr = (p["أسم المنتج"] || "").toLowerCase();
+                const nameEn = (p["Item Description"] || "").toLowerCase();
+                const brand = (p["Brand"] || "").toLowerCase();
+
+                if (codeStr === q) score += 100; // Perfect Code Match
+                else if (codeStr.includes(q)) score += 50;
+                
+                if (nameAr.includes(q) || nameEn.includes(q)) score += 10;
+                if (brand.includes(q)) score += 5;
+
+                return { ...p, _score: score };
+            }).filter(p => p._score > 0).sort((a, b) => b._score - a._score);
+
+            renderSuggestions(scored.slice(0, 15), q);
+            filterData(); 
+        }
+
+        function highlight(text, query) {
+            if (!query) return text;
+            const re = new RegExp(`(${query})`, "gi");
+            return text.toString().replace(re, '<mark style="background:#fef08a; padding:0 2px; border-radius:2px;">$1</mark>');
+        }
+
+        function renderSuggestions(matches, query) {
+            const el = document.getElementById('searchSuggestions');
+            if (matches.length === 0) {
+                el.style.display = 'none';
+                return;
+            }
+
+            el.innerHTML = matches.map(p => {
+                const name = p["أسم المنتج"] || p["Item Description"];
+                const brand = p["Brand"] || "General";
+                const code = p.Code;
+                const displayStr = `${name} | ${brand} | ${code}`;
+
+                return `
+                <div class="suggestion-item" onclick="selectSuggestion('${p.Code}')">
+                    <img src="${getBestImg(p)}" class="suggestion-img" onerror="this.src='https://via.placeholder.com/50'">
+                    <div class="suggestion-info">
+                        <span class="suggestion-name">${highlight(displayStr, query)}</span>
+                        <div class="suggestion-meta">
+                            <span class="suggestion-price">${p["Unit Price"]} SAR</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            el.style.display = 'block';
+        }
+
+        function selectSuggestion(code) {
+            const p = masterData.find(x => x.Code == code);
+            if (p) {
+                document.getElementById('searchInput').value = p["أسم المنتج"] || p["Item Description"];
+                document.getElementById('searchSuggestions').style.display = 'none';
+                filterData();
+                setTimeout(() => {
+                    const el = document.querySelector(`[data-code="${code}"]`);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                document.getElementById('searchSuggestions').style.display = 'none';
+            }
+        });
+
+        function filterData() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
 
             filteredData = masterData.filter(p => {
                 const mq = !q || p.Code.toString().includes(q) ||
@@ -1009,7 +1125,7 @@
         }
 
         function resetFilters() {
-            document.getElementById('globalSearch').value = '';
+            document.getElementById('searchInput').value = '';
             for (let field in selectedFilters) {
                 selectedFilters[field] = [];
                 const dropdown = document.querySelector(`.filter-box[data-field="${field}"]`);
