@@ -1740,22 +1740,25 @@
                         const nameAr = main["أسم المنتج"] || main["Item Name Ar"] || main["Product Name Ar"];
                         const nameEn = main["Item Description"] || main["Item Name En"] || '';
                         const isOwnBrand = !!main["Own Brand"];
+                        const brandColor = getColor(brand);
 
                         card.innerHTML = `
                             <div class="img-stack" style="${isPageMode ? 'height:120px;' : ''}">
                                 ${isOwnBrand ? `<div class="own-brand-badge">✨ OWN BRAND</div>` : ''}
-                                <div class="code-badge">#${main.Code}</div>
                                 <img src="${getBestImg(main)}" data-code="${main.Code}" onerror="imgErr(this, '${main.Code}')">
                             </div>
                             <div class="card-details">
                                 <div class="name-en" style="color:#1e293b; font-weight:800; font-size:${isPageMode ? '0.75rem' : '0.95rem'}; margin-bottom:2px;">${nameEn}</div>
                                 ${nameAr ? `<div class="name-ar" style="color:var(--primary); font-weight:900; font-size:${isPageMode ? '0.8rem' : '1rem'}; line-height:1.2;">${nameAr}</div>` : ''}
-                                <span class="brand-text" style="margin-top:4px; display:block;">${brand}</span>
+                                <span class="brand-text" style="margin-top:4px; display:block; color:${brandColor}; text-transform: uppercase;">${brand}</span>
                             </div>
                             <div class="price-row">
                                 <div class="price-val" style="${isPageMode ? 'font-size:1rem;' : ''}">
                                     ${main["Unit Price"] || '0.00'}
                                     <img src="${RIYAL_SVG}" class="riyal-img">
+                                </div>
+                                <div style="font-family: 'Roboto', sans-serif; font-weight: 900; font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">
+                                    #${main.Code}
                                 </div>
                             </div>
                         `;
@@ -1983,18 +1986,20 @@
                             </div>
                             <div class="img-stack">
                                 ${isOwnBrand ? `<div class="own-brand-badge" style="font-size:6px; top:1px; left:1px; padding:1px 3px;">✨ OWN BRAND</div>` : ''}
-                                <div class="code-badge">#${p.Code}</div>
                                 <img src="${currentImg}" data-code="${p.Code}">
                             </div>
                             <div class="card-details">
                                 <div class="name-en" style="color:#1e293b; font-weight:800; font-size:0.95rem; margin-bottom:2px;">${nameEn}</div>
                                 <div class="name-ar" style="color:var(--primary); font-weight:900; font-size:1rem; line-height:1.2;">${nameAr}</div>
-                                <span class="brand-text" style="margin-top:4px; display:block;">${brand}</span>
+                                <span class="brand-text" style="margin-top:4px; display:block; color:${getColor(brand)}; text-transform: uppercase;">${brand}</span>
                             </div>
                             <div class="price-row">
                                 <div class="price-val">
                                     ${p["Unit Price"] || '0.00'}
                                     <img src="${RIYAL_SVG}" class="riyal-img">
+                                </div>
+                                <div style="font-family: 'Roboto', sans-serif; font-weight: 900; font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">
+                                    #${p.Code}
                                 </div>
                             </div>
                         </div>
