@@ -9,7 +9,6 @@
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;700;900&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary: #059669;
@@ -93,14 +92,15 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             margin-top: 10px;
             max-height: 450px;
             overflow-y: auto;
             z-index: 1000;
             display: none;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .suggestion-item {
             padding: 10px 15px;
             display: flex;
@@ -110,13 +110,51 @@
             transition: background 0.2s;
             border-bottom: 1px solid #f1f5f9;
         }
-        .suggestion-item:hover { background: #f8fafc; }
-        .suggestion-img { width: 45px; height: 45px; object-fit: contain; border-radius: 6px; background: white; padding: 2px; border: 1px solid #e2e8f0; }
-        .suggestion-info { flex: 1; }
-        .suggestion-name { font-size: 0.9rem; font-weight: 600; color: #1e293b; display: block; }
-        .suggestion-meta { font-size: 0.75rem; color: #64748b; }
-        .suggestion-price { font-weight: 700; color: #2563eb; font-size: 0.85rem; }
-        .suggestion-type { font-size: 0.65rem; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
+
+        .suggestion-item:hover {
+            background: #f8fafc;
+        }
+
+        .suggestion-img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: white;
+            padding: 2px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .suggestion-info {
+            flex: 1;
+        }
+
+        .suggestion-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            display: block;
+        }
+
+        .suggestion-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .suggestion-price {
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 0.85rem;
+        }
+
+        .suggestion-type {
+            font-size: 0.65rem;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
 
         .scanner-btn {
             position: absolute;
@@ -439,15 +477,37 @@
         /* Printing Styles */
         /* Printing Styles */
         @media print {
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            body { background: white !important; color: black !important; padding: 0 !important; margin: 0 !important; }
-            
-            .navbar, .hero, .filters-grid, .load-more-trigger, .scroll-top, .print-fab, .nav-btn, .mag-nav-arrow, .mag-page-indicator, .view-toggle-btn { 
-                display: none !important; 
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
-            
-            #mainContainer { width: 100% !important; padding: 0 !important; margin: 0 !important; }
-            
+
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .navbar,
+            .hero,
+            .filters-grid,
+            .load-more-trigger,
+            .scroll-top,
+            .print-fab,
+            .nav-btn,
+            .mag-nav-arrow,
+            .mag-page-indicator,
+            .view-toggle-btn {
+                display: none !important;
+            }
+
+            #mainContainer {
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
             /* Root container */
             .product-grid {
                 display: block !important;
@@ -472,7 +532,8 @@
             }
 
             .category-header {
-                grid-column: 1 / -1 !important; /* Take full width of the grid */
+                grid-column: 1 / -1 !important;
+                /* Take full width of the grid */
                 background: #334155 !important;
                 color: white !important;
                 padding: 8px 12px !important;
@@ -501,68 +562,47 @@
                 min-width: 0 !important;
                 border: 1px solid #cbd5e1 !important;
                 box-shadow: none !important;
-                padding: 5px !important; /* Smaller padding for density */
+                padding: 8px !important;
                 height: auto !important;
                 display: flex !important;
                 flex-direction: column !important;
                 break-inside: avoid !important;
                 background: white !important;
-                position: relative !important;
             }
 
-            /* Continuous Grid Logic */
-            .cat-d-group, .product-items-flex {
-                display: contents !important;
-            }
-            
-            #mainContainer, .magazine-page-view {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 10px !important;
+            .img-stack {
+                height: 110px !important;
                 width: 100% !important;
             }
-                             /* إخفاء العنوان الفرعي فقط */
-            .subcat-header {
-                display: none !important; 
+
+            .name-ar {
+                font-size: 0.75rem !important;
+                margin-top: 5px !important;
+                min-height: 2.2em !important;
+                line-height: 1.2 !important;
             }
 
-            /* إظهار الكاتيجوري A كعنوان رئيسي يملأ الصفحة (4 أعمدة) */
-            .category-header {
-                display: block !important;
-                grid-column: 1 / -1 !important; 
-                color: white !important;
-                padding: 12px 20px !important;
-                font-size: 1.5rem !important;
-                font-weight: 900 !important;
-                border-radius: 8px !important;
-                margin: 25px 0 15px !important; 
-                text-transform: uppercase !important;
-                text-align: center !important;
-                width: 100% !important;
-                box-sizing: border-box !important;
+            .name-en {
+                font-size: 0.6rem !important;
+                opacity: 0.7 !important;
             }
 
-            .inline-header {
-                display: block !important;
-                width: 100% !important;
-                padding: 6px 4px !important;
-                font-size: 0.65rem !important;
-                font-weight: 800 !important;
-                border-radius: 4px 4px 0 0 !important; /* زوايا دائرية من الأعلى فقط ليتماشى مع الكارت */
-                margin: -5px -5px 5px -5px !important; /* ليلتصق بحواف الكارت من الأعلى تماماً */
-                text-transform: uppercase !important;
-                text-align: center !important;
-                box-sizing: content-box !important;
+            .price-val {
+                font-size: 0.95rem !important;
+                font-weight: bold !important;
             }
 
-            .img-stack { height: 110px !important; width: 100% !important; }
-            .name-ar { font-size: 0.75rem !important; margin-top: 5px !important; min-height: 2.2em !important; line-height: 1.2 !important; }
-            .name-en { font-size: 0.6rem !important; opacity: 0.7 !important; }
-            .price-val { font-size: 0.95rem !important; font-weight: bold !important; }
-            .riyal-img { width: 12px !important; height: 12px !important; }
+            .riyal-img {
+                width: 12px !important;
+                height: 12px !important;
+            }
 
-            @page { margin: 10mm; size: A4; }
+            @page {
+                margin: 10mm;
+                size: A4;
+            }
         }
+
         /* Card Styles */
         .product-card {
             background: white;
@@ -577,7 +617,7 @@
         }
 
         .product-card:hover {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
             border-color: #2563eb;
         }
 
@@ -607,6 +647,21 @@
             font-weight: 900;
             padding: 2px 6px;
             border-radius: 10px;
+        }
+
+        .own-brand-badge {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: linear-gradient(135deg, #7c3aed, #f59e0b);
+            color: white;
+            font-size: 7px;
+            font-weight: 900;
+            padding: 1px 4px;
+            border-radius: 4px;
+            z-index: 5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-transform: uppercase;
         }
 
         .card-details {
@@ -740,6 +795,96 @@
             background: #f59e0b;
         }
 
+        /* Custom Modal Styles */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .css-art-modal {
+            background: #1e293b;
+            border: 2px solid #fbbf24;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .css-art-modal::before {
+            content: 'MONO';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 8rem;
+            font-weight: 900;
+            opacity: 0.03;
+            transform: rotate(-10deg);
+            pointer-events: none;
+        }
+
+        .modal-art-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .art-line {
+            height: 2px;
+            width: 50px;
+            background: linear-gradient(90deg, transparent, #fbbf24);
+        }
+
+        .art-line:last-child {
+            background: linear-gradient(90deg, #fbbf24, transparent);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-btn.confirm {
+            background: #fbbf24;
+            color: #1e293b;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Professional Footer Styles */
         .reset-btn {
             background: #ef4444;
             color: white;
@@ -852,146 +997,233 @@
             transition: 0.2s;
         }
 
-        /* Excel Upload Styles */
-        .excel-upload-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: var(--card-dark);
-            border: 2px dashed var(--glass-border);
-            border-radius: 15px;
+        /* Professional Footer Styles */
+        .main-footer {
+            background: #1e293b;
+            border-top: 2px solid var(--primary);
+            padding: 30px 20px;
+            margin-top: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px;
-            text-align: center;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--primary);
             transition: all 0.3s;
         }
 
-        .excel-upload-container:hover {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
+        .footer-section:nth-child(2) {
+            border-left-color: #fbbf24;
         }
 
-        .excel-upload-label {
+        .footer-section:nth-child(3) {
+            border-left-color: var(--accent);
+        }
+
+        .footer-section:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #fbbf24;
+            font-weight: 900;
+            margin-bottom: 8px;
             display: block;
-            cursor: pointer;
-            color: #94a3b8;
-            font-weight: 700;
         }
 
-        .excel-upload-label i {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .excel-info {
-            margin-top: 15px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .excel-count-badge {
-            background: var(--primary);
+        .footer-value {
+            font-size: 1rem;
+            font-weight: 800;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .footer-art {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 10rem;
+            opacity: 0.03;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        /* Own Brand Badge */
+        .own-brand-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 10px;
             font-weight: 900;
-            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .preview-excel-btn {
-            background: #fbbf24;
-            color: #0f172a;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
+        .code-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            color: #fbbf24;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
             font-weight: 900;
-            cursor: pointer;
-            transition: 0.3s;
+            z-index: 10;
+            font-family: 'Roboto', sans-serif;
         }
 
-        .preview-excel-btn:hover {
-            transform: scale(1.05);
-            background: #f59e0b;
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body {
+                background: #0f172a !important;
+                color: white !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .navbar,
+            .hero,
+            .filters-grid,
+            .load-more-trigger,
+            .scroll-top,
+            .print-fab,
+            .nav-btn,
+            .mag-nav-arrow,
+            .mag-page-indicator,
+            .view-toggle-btn,
+            .pdf-btn {
+                display: none !important;
+            }
+
+            #mainContainer {
+                width: 100% !important;
+                padding: 10mm !important;
+            }
+
+            .main-footer {
+                position: static !important;
+                display: block !important;
+                background: #1e293b !important;
+                border-top: 2px solid var(--primary) !important;
+                page-break-inside: avoid !important;
+            }
+
+            .footer-section {
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                margin-bottom: 10px !important;
+            }
+
+            .product-card {
+                background: white !important;
+                color: #0f172a !important;
+                break-inside: avoid !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+
+            .category-header {
+                break-after: avoid !important;
+            }
+
+            @page {
+                margin: 0;
+                size: auto;
+            }
         }
 
-        .excel-status {
-            font-size: 0.85rem;
-            color: #10b981;
-            font-weight: 600;
-        }
-
-        /* Image Toggle Switch */
-        .toggle-container {
+        .pdf-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 230px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px;
-            border-radius: 50px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .switch input { opacity: 0; width: 0; height: 0; }
-
-        .slider {
-            position: absolute;
             cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #334155;
-            transition: .4s;
-            border-radius: 24px;
+            z-index: 5000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: none;
+            font-size: 22px;
+            transition: 0.3s;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px; width: 18px;
-            left: 3px; bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider { background-color: var(--primary); }
-        input:checked + .slider:before { transform: translateX(26px); }
-
-        .toggle-label {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: #94a3b8;
-        }
-
-        .no-image-section-header {
-            width: 100%;
-            padding: 20px;
-            background: #1e293b;
-            color: #94a3b8;
-            text-align: center;
-            font-weight: 900;
-            border-top: 2px dashed #334155;
-            margin: 50px 0 20px;
-            border-radius: 10px;
-        }
-
-        .inline-header {
-            display: none;
+        .pdf-btn:hover {
+            transform: scale(1.1);
+            background: #059669;
         }
     </style>
 </head>
 
 <body>
+
+    <div id="exportModal" class="custom-modal">
+        <div class="modal-content css-art-modal">
+            <div class="modal-art-box">
+                <div class="art-line"></div>
+                <h2 style="letter-spacing: 4px; color: #fbbf24; margin: 10px 0;">P R E P A R I N G &nbsp; P D F</h2>
+                <div class="art-line"></div>
+            </div>
+            <p style="margin: 20px 0; font-weight: 700;">You are about to export <span id="exportCount"
+                    style="color:var(--primary); font-size: 1.2rem;">0</span> filtered items.</p>
+            <div class="modal-actions">
+                <button class="modal-btn confirm" onclick="startExport()">PROCEED ✅</button>
+                <button class="modal-btn cancel" onclick="closeExportModal()">CANCEL ✕</button>
+            </div>
+        </div>
+    </div>
 
     <div id="scannerModal">
         <div class="scanner-box">
@@ -1002,7 +1234,10 @@
 
     <nav class="navbar">
         <div class="logo">🌙 MONO PRODUCT HUB</div>
-        <div style="font-size: 0.8rem; font-weight: 800; color: #94a3b8;">SYSTEM v2.5</div>
+        <div class="header-info" style="text-align: right; border-left: 2px solid #fbbf24; padding-left: 15px;">
+            <div style="font-size: 0.7rem; font-weight: 900; color: #fbbf24; letter-spacing: 3px;">D E V E L O P E R</div>
+            <div style="font-size: 1rem; font-weight: 800; color: white;">Ph : Mohamed Kholeif (11185)</div>
+        </div>
     </nav>
 
     <div class="hero">
@@ -1011,29 +1246,6 @@
                 placeholder="Search by name, code, or scan barcode..." oninput="handleSmartSearch(this.value)">
             <div id="searchSuggestions" class="search-suggestions"></div>
             <button class="scanner-btn" onclick="startScanner()">📷</button>
-        </div>
-
-        <div class="excel-upload-container" id="excelDropZone">
-            <label for="excelInput" class="excel-upload-label">
-                <span id="excelLabelText">📁 Upload Excel to filter products by codes</span>
-                <input type="file" id="excelInput" accept=".xlsx, .xls, .csv" style="display:none" onchange="handleExcelUpload(this)">
-            </label>
-            <div id="excelInfo" class="excel-info">
-                <div class="excel-status">✅ File processed successfully!</div>
-                <div class="excel-count-badge" id="excelCountBadge">0 Codes Found</div>
-                <div style="display:flex; gap:10px;">
-                    <button class="preview-excel-btn" id="previewExcelBtn" onclick="applyExcelFilter()">PREVIEW CODES 🔍</button>
-                    <button class="preview-excel-btn" style="background:#ef4444; color:white;" onclick="resetExcel()">RESET EXCEL 🗑️</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="toggle-container">
-            <span class="toggle-label">SHOW PRODUCTS WITHOUT IMAGES</span>
-            <label class="switch">
-                <input type="checkbox" id="noImageToggle" onchange="toggleNoImages(this.checked)">
-                <span class="slider"></span>
-            </label>
         </div>
     </div>
 
@@ -1115,9 +1327,46 @@
                 </div>
             </div>
         </div>
+        <div class="filter-box" data-field="Prime List Class">
+            <div class="filter-label">Prime List</div>
+            <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
+                <div class="dropdown-trigger">Select Class <span class="selected-count">(0)</span> ▾</div>
+                <div class="dropdown-menu" onclick="event.stopPropagation()">
+                    <div class="dropdown-search"><input type="text" placeholder="Search class..."
+                            oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-list"></div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-box" data-field="House Brand">
+            <div class="filter-label">House Brand</div>
+            <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
+                <div class="dropdown-trigger">Select House <span class="selected-count">(0)</span> ▾</div>
+                <div class="dropdown-menu" onclick="event.stopPropagation()">
+                    <div class="dropdown-search"><input type="text" placeholder="Search house brand..."
+                            oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-list"></div>
+                </div>
+            </div>
+        </div>
+        <div class="filter-box" data-field="Own Brand">
+            <div class="filter-label">Own Brand</div>
+            <div class="custom-dropdown" onclick="toggleDropdown(this, event)">
+                <div class="dropdown-trigger">Select Own <span class="selected-count">(0)</span> ▾</div>
+                <div class="dropdown-menu" onclick="event.stopPropagation()">
+                    <div class="dropdown-search"><input type="text" placeholder="Search own brand..."
+                            oninput="filterDropdownItems(this)"></div>
+                    <div class="dropdown-list"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="text-align:center; padding:10px;">
+    <div style="text-align:center; padding:10px; display: flex; justify-content: center; gap: 15px; align-items: center; flex-wrap: wrap;">
         <button class="reset-btn" onclick="resetFilters()">RESET ALL FILTERS 🔄</button>
+        <label class="toggle-container" style="background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; align-items: center; gap: 10px; color: white; font-weight: 700;">
+            <input type="checkbox" id="hideNoImageToggle" onchange="filterData()" style="width: 18px; height: 18px; cursor: pointer;">
+            HIDE PRODUCTS WITHOUT IMAGES 🖼️
+        </label>
     </div>
 
     <main class="magazine-grid" id="mainContainer"></main>
@@ -1125,18 +1374,37 @@
     <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
     <button class="print-fab" onclick="window.print()" title="Print">🖨️</button>
     <button class="view-toggle-btn" onclick="toggleViewMode()" title="Toggle Preview/Infinite">📖</button>
+    <button class="pdf-btn" onclick="exportFullPDF()" title="Export PDF">📄</button>
 
     <button class="mag-nav-arrow left" id="magPrev" onclick="changePage(-1)">❮</button>
     <button class="mag-nav-arrow right" id="magNext" onclick="changePage(1)">❯</button>
     <div class="mag-page-indicator" id="magIndicator">PAGE 1 OF 1</div>
 
+    <footer class="main-footer">
+        <div class="footer-content" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="footer-section" style="border-left-color: #3b82f6;">
+                <div class="footer-label">D E V E L O P E R</div>
+                <div class="footer-value">Ph : Mohamed Kholeif (11185)</div>
+            </div>
+            <div class="footer-section" style="border-left-color: #10b981;">
+                <div class="footer-label">S U P E R V I S O R</div>
+                <div class="footer-value">Dr : Ibrahim Gamea</div>
+            </div>
+            <div class="footer-section" style="border-left-color: #8b5cf6;">
+                <div class="footer-label">S E N I O R</div>
+                <div class="footer-value">Dr : Abdullah Negm</div>
+            </div>
+            <div class="footer-section" style="border-left-color: #fbbf24;">
+                <div class="footer-label">R E G I O N A L &nbsp; M A N A G E R</div>
+                <div class="footer-value">Dr : Alaa Shaker</div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        const DB_URLS = [
-            "https://raw.githubusercontent.com/meralmohamed121022-cyber/offerstestgit/refs/heads/main/products1.json",
-            "https://raw.githubusercontent.com/meralmohamed121022-cyber/offerstestgit/refs/heads/main/products2.json"
-        ];
+        const DB_PATH = "masterall.json";
         const WORKER_IMG = "https://online.meralmohamed121022.workers.dev/api/product?code=";
-        const WORKER_TOKEN = ""; 
+        const WORKER_TOKEN = "";
         const RIYAL_SVG = "https://www.sama.gov.sa/ar-sa/Currency/Documents/Saudi_Riyal_Symbol-2.svg";
 
         let masterData = [];
@@ -1154,24 +1422,22 @@
             "Category Level C": [],
             "Category Level D": [],
             "Category Level E": [],
-            "Manufacture": []
+            "Manufacture": [],
+            "Prime List Class": [],
+            "House Brand": [],
+            "Own Brand": []
         };
-
-        let excelCodes = [];
-        let isExcelFilterActive = false;
-        let showNoImages = false;
 
         async function bootstrap() {
             try {
-                const responses = await Promise.all(DB_URLS.map(u => fetch(u)));
-                const data = await Promise.all(responses.map(r => r.json()));
-                masterData = data.flat();
+                const response = await fetch(DB_PATH);
+                masterData = await response.json();
                 filteredData = [...masterData];
 
                 initFilters();
                 renderBatch();
                 setupInfiniteScroll();
-            } catch (err) { console.error(err); }
+            } catch (err) { console.error("Error loading database:", err); }
         }
 
         function initFilters() {
@@ -1182,7 +1448,10 @@
                 "Category Level C": new Set(),
                 "Category Level D": new Set(),
                 "Category Level E": new Set(),
-                "Manufacture": new Set()
+                "Manufacture": new Set(),
+                "Prime List Class": new Set(),
+                "House Brand": new Set(),
+                "Own Brand": new Set()
             };
             masterData.forEach(p => {
                 for (let key in filterMap) { if (p[key]) filterMap[key].add(p[key]); }
@@ -1238,7 +1507,7 @@
             }
 
             const q = query.toLowerCase();
-            
+
             // Fuzzy Scoring Logic with Code Priority
             const scored = masterData.map(p => {
                 let score = 0;
@@ -1249,7 +1518,7 @@
 
                 if (codeStr === q) score += 100; // Perfect Code Match
                 else if (codeStr.includes(q)) score += 50;
-                
+
                 if (nameAr.includes(q) || nameEn.includes(q)) score += 10;
                 if (brand.includes(q)) score += 5;
 
@@ -1257,7 +1526,7 @@
             }).filter(p => p._score > 0).sort((a, b) => b._score - a._score);
 
             renderSuggestions(scored.slice(0, 15), q);
-            filterData(); 
+            filterData();
         }
 
         function highlight(text, query) {
@@ -1313,79 +1582,32 @@
             }
         });
 
+        function filterData() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const hideNoImage = document.getElementById('hideNoImageToggle').checked;
 
-        function toggleNoImages(checked) {
-            showNoImages = checked;
-            filterData();
-        }
+            filteredData = masterData.filter(p => {
+                // Image Filter
+                if (hideNoImage) {
+                    const img = p.itemurl || p.ItemURL || p.Image;
+                    if (!img || img === "null" || img.trim() === "") return false;
+                }
 
-        async function handleExcelUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
+                const mq = !q || p.Code.toString().includes(q) ||
+                    (p["Item Description"] || "").toLowerCase().includes(q) ||
+                    (p["أسم المنتج"] || "").toLowerCase().includes(q);
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                let mf = true;
+                for (let field in selectedFilters) {
+                    if (selectedFilters[field].length > 0 && !selectedFilters[field].includes(p[field])) { mf = false; break; }
+                }
+                return mq && mf;
+            });
 
-                const codes = new Set();
-                json.forEach(row => {
-                    row.forEach(cell => {
-                        if (cell) {
-                            const str = cell.toString().trim();
-                            // Check for 6-digit codes
-                            const matches = str.match(/\b\d{6}\b/g);
-                            if (matches) matches.forEach(m => codes.add(m));
-                        }
-                    });
-                });
-
-                excelCodes = Array.from(codes);
-                document.getElementById('excelCountBadge').textContent = `${excelCodes.length} Codes Found`;
-                document.getElementById('excelInfo').style.display = 'flex';
-                document.getElementById('excelLabelText').textContent = `📄 ${file.name}`;
-            };
-            reader.readAsArrayBuffer(file);
-        }
-
-        function applyExcelFilter() {
-            if (excelCodes.length === 0) return;
-            isExcelFilterActive = true;
-            
-            // Highlight the active state
-            const btn = document.getElementById('previewExcelBtn');
-            if (btn.textContent.includes('PREVIEW')) {
-                btn.textContent = 'SHOW ALL PRODUCTS 🔙';
-                btn.style.background = '#ef4444';
-                btn.style.color = 'white';
-            } else {
-                isExcelFilterActive = false;
-                btn.textContent = 'PREVIEW CODES 🔍';
-                btn.style.background = '#fbbf24';
-                btn.style.color = '#0f172a';
-            }
-            
-            filterData();
-        }
-
-        function resetExcel() {
-            excelCodes = [];
-            isExcelFilterActive = false;
-            document.getElementById('excelInfo').style.display = 'none';
-            document.getElementById('excelLabelText').textContent = '📁 Upload Excel to filter products by codes';
-            document.getElementById('excelInput').value = '';
-            
-            const btn = document.getElementById('previewExcelBtn');
-            if (btn) {
-                btn.textContent = 'PREVIEW CODES 🔍';
-                btn.style.background = '#fbbf24';
-                btn.style.color = '#0f172a';
-            }
-            
-            filterData();
+            displayedCount = 0;
+            currentPage = 1;
+            document.getElementById('mainContainer').innerHTML = '';
+            if (isPageMode) renderPage(); else renderBatch();
         }
 
         function resetFilters() {
@@ -1398,25 +1620,7 @@
                     dropdown.querySelector('.selected-count').textContent = '(0)';
                 }
             }
-            
-            // Also reset Excel
-            excelCodes = [];
-            isExcelFilterActive = false;
-            document.getElementById('excelInfo').style.display = 'none';
-            document.getElementById('excelLabelText').textContent = '📁 Upload Excel to filter products by codes';
-            document.getElementById('excelInput').value = '';
-            
-            const btn = document.getElementById('previewExcelBtn');
-            if (btn) {
-                btn.textContent = 'PREVIEW CODES 🔍';
-                btn.style.background = '#fbbf24';
-                btn.style.color = '#0f172a';
-            }
-
-            document.getElementById('noImageToggle').checked = false;
-            showNoImages = false;
-
-            filterData();
+            applyAllFilters();
         }
 
         function toggleViewMode() {
@@ -1478,68 +1682,6 @@
             const container = document.getElementById('mainContainer');
             if (!append) container.innerHTML = '';
 
-            // Split into two lists: with images and without images
-            const withImages = items.filter(p => !!(p.itemurl || p.itemURL || p.Image));
-            const withoutImages = items.filter(p => !withImages.includes(p));
-
-            if (withImages.length > 0) {
-                renderGrouped(withImages, container, append);
-            }
-
-            if (withoutImages.length > 0) {
-                const header = document.createElement('div');
-                header.className = 'no-image-section-header';
-                header.innerHTML = '📷 PRODUCTS WITHOUT IMAGES (SHOWN AT THE END)';
-                container.appendChild(header);
-                renderGrouped(withoutImages, container, true);
-            }
-        }
-
-        function filterData() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-
-            filteredData = masterData.filter(p => {
-                // Excel Filter
-                if (isExcelFilterActive && !excelCodes.includes(p.Code.toString())) {
-                    return false;
-                }
-
-                // No Image Filter
-                const hasImg = !!(p.itemurl || p.itemURL || p.Image);
-                if (!showNoImages && !hasImg) {
-                    return false;
-                }
-
-                const mq = !q || p.Code.toString().includes(q) ||
-                        (p["Item Description"] || "").toLowerCase().includes(q) ||
-                        (p["أسم المنتج"] || "").toLowerCase().includes(q);
-
-                let mf = true;
-                for (let field in selectedFilters) {
-                    if (selectedFilters[field].length > 0 && !selectedFilters[field].includes(p[field])) { mf = false; break; }
-                }
-                return mq && mf;
-            });
-
-            // 🔥 التعديل السحري الأول: ترتيب البيانات أبجدياً حسب الكاتيجوري A ثم D
-            filteredData.sort((a, b) => {
-                const catA_a = a["Category Level A"] || "UNCATEGORIZED";
-                const catA_b = b["Category Level A"] || "UNCATEGORIZED";
-                if (catA_a !== catA_b) return catA_a.localeCompare(catA_b);
-                
-                const catD_a = a["Category Level D"] || "OTHER";
-                const catD_b = b["Category Level D"] || "OTHER";
-                return catD_a.localeCompare(catD_b);
-            });
-
-            displayedCount = 0;
-            currentPage = 1;
-            document.getElementById('mainContainer').innerHTML = '';
-            if (isPageMode) renderPage(); else renderBatch();
-        }
-
-        // 🔥 التعديل السحري الثاني: دالة ذكية تقوم بتجميع الكروت في نفس الكاتيجوري حتى لو تم تحميلها في دفعات مختلفة
-        function renderGrouped(items, container, append = false) {
             const groups = {};
             items.forEach(p => {
                 const a = p["Category Level A"] || "UNCATEGORIZED";
@@ -1552,7 +1694,7 @@
             let targetContainer = container;
             if (isPageMode && !append) {
                 const pageWrapper = document.createElement('div');
-                pageWrapper.className = 'magazine-page-view magazine-grid';
+                pageWrapper.className = 'magazine-page-view magazine-grid'; // Reuse flex styles
                 pageWrapper.style.cssText = "background:white; color:black; padding:40px; border-radius:10px; box-shadow:0 20px 50px rgba(0,0,0,0.5); min-height:800px; max-width:1250px; margin:0 auto 50px;";
                 container.appendChild(pageWrapper);
                 targetContainer = pageWrapper;
@@ -1560,49 +1702,35 @@
 
             Object.entries(groups).forEach(([catA, subCats]) => {
                 const colorA = getColor(catA);
-                let safeCatA = catA.replace(/[^a-zA-Z0-9]/g, '_');
-                
-                // البحث عما إذا كان جروب Category A موجود مسبقاً
-                let catAContainer = targetContainer.querySelector(`.cat-a-container[data-cata="${safeCatA}"]`);
-                if (!catAContainer || (!append && !isPageMode)) {
-                    catAContainer = document.createElement('div');
-                    catAContainer.className = 'cat-a-container';
-                    catAContainer.dataset.cata = safeCatA;
-                    catAContainer.style.display = 'contents'; // لكي لا يكسر الـ Grid في الطباعة
-                    
-                    const headerA = document.createElement('div');
-                    headerA.className = 'category-header';
-                    headerA.style.background = colorA;
-                    headerA.textContent = catA;
-                    catAContainer.appendChild(headerA);
-                    
-                    targetContainer.appendChild(catAContainer);
-                }
+                const headerA = document.createElement('div');
+                headerA.className = 'category-header';
+                headerA.style.background = colorA;
+                headerA.textContent = catA;
+                targetContainer.appendChild(headerA);
 
                 Object.entries(subCats).forEach(([catD, itemsList]) => {
                     const colorD = getColor(catD + "sub");
-                    let safeCatD = catD.replace(/[^a-zA-Z0-9]/g, '_');
 
-                    // البحث عما إذا كان جروب Category D موجود مسبقاً بداخل نفس Category A
-                    let groupDiv = catAContainer.querySelector(`.cat-d-group[data-catd="${safeCatD}"]`);
-                    
-                    if (!groupDiv || (!append && !isPageMode)) {
-                        groupDiv = document.createElement('div');
-                        groupDiv.className = 'cat-d-group';
-                        groupDiv.dataset.catd = safeCatD;
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'cat-d-group';
 
-                        groupDiv.innerHTML = `
-                            <div class="subcat-header" style="background:${colorD}">${catD}</div>
-                            <button class="nav-btn nav-prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">❮</button>
-                            <div class="product-items-flex"></div>
-                            <button class="nav-btn nav-next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">❯</button>
-                        `;
-                        catAContainer.appendChild(groupDiv);
+                    // Logic: Desktop group width = count * cardWidth (up to 4)
+                    const cardWidth = 295; // Card (280) + gap (15)
+                    const desktopCount = Math.min(itemsList.length, 4);
+                    if (!isPageMode) {
+                        groupDiv.style.width = `calc(${desktopCount} * ${cardWidth}px)`;
+                        groupDiv.style.maxWidth = "100%";
                     }
 
+                    groupDiv.innerHTML = `
+                        <div class="subcat-header" style="background:${colorD}">${catD}</div>
+                        <button class="nav-btn nav-prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">❮</button>
+                        <div class="product-items-flex"></div>
+                        <button class="nav-btn nav-next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">❯</button>
+                    `;
+
                     const flexBox = groupDiv.querySelector('.product-items-flex');
-                    
-                    itemsList.forEach((main) => {
+                    itemsList.forEach(main => {
                         const brand = main.Brand || 'Generic';
                         const card = document.createElement('div');
                         card.className = 'product-card';
@@ -1610,17 +1738,19 @@
                         card.onclick = () => window.open(`https://www.al-dawaa.com/en/p/${main.Code}`, '_blank');
 
                         const nameAr = main["أسم المنتج"] || main["Item Name Ar"] || main["Product Name Ar"];
-                        const inlineHeaderHtml = `<div class="inline-header" style="background-color:${colorD} !important; border-bottom: 3px solid ${colorA} !important; color:white !important;">${catA} | ${catD}</div>`;
+                        const nameEn = main["Item Description"] || main["Item Name En"] || '';
+                        const isOwnBrand = !!main["Own Brand"];
 
                         card.innerHTML = `
-                            ${inlineHeaderHtml}
                             <div class="img-stack" style="${isPageMode ? 'height:120px;' : ''}">
+                                ${isOwnBrand ? `<div class="own-brand-badge">✨ OWN BRAND</div>` : ''}
+                                <div class="code-badge">#${main.Code}</div>
                                 <img src="${getBestImg(main)}" data-code="${main.Code}" onerror="imgErr(this, '${main.Code}')">
                             </div>
                             <div class="card-details">
-                                ${nameAr ? `<div class="name-ar" style="color:var(--primary); font-weight:900; font-size:${isPageMode ? '0.85rem' : '1.1rem'}; margin-bottom:4px;">${nameAr}</div>` : ''}
-                                <span class="brand-text">${brand}</span>
-                                <div class="name-en" style="${isPageMode ? 'font-size:0.75rem;' : ''}">${main["Item Description"] || main["Item Name En"] || ''}</div>
+                                <div class="name-en" style="color:#1e293b; font-weight:800; font-size:${isPageMode ? '0.75rem' : '0.95rem'}; margin-bottom:2px;">${nameEn}</div>
+                                ${nameAr ? `<div class="name-ar" style="color:var(--primary); font-weight:900; font-size:${isPageMode ? '0.8rem' : '1rem'}; line-height:1.2;">${nameAr}</div>` : ''}
+                                <span class="brand-text" style="margin-top:4px; display:block;">${brand}</span>
                             </div>
                             <div class="price-row">
                                 <div class="price-val" style="${isPageMode ? 'font-size:1rem;' : ''}">
@@ -1631,18 +1761,11 @@
                         `;
                         flexBox.appendChild(card);
                     });
-                    
-                    // حساب وتحديث العرض بشكل ديناميكي
-                    if (!isPageMode) {
-                        const totalCards = flexBox.children.length;
-                        const cardWidth = 295;
-                        const desktopCount = Math.min(totalCards, 4);
-                        groupDiv.style.width = `calc(${desktopCount} * ${cardWidth}px)`;
-                        groupDiv.style.maxWidth = "100%";
-                    }
+                    targetContainer.appendChild(groupDiv);
                 });
             });
-        }        
+        }
+
         function getBestImg(p) {
             let url = p.itemurl || p.itemURL || p.Image || "";
             if (!url) return `https://via.placeholder.com/1x1?text=FETCHING_${p.Code}`;
@@ -1656,12 +1779,12 @@
                 img.dataset.triedWorker = "true";
                 const headers = {};
                 if (WORKER_TOKEN) headers['x-session-token'] = WORKER_TOKEN;
-                
+
                 fetch(WORKER_IMG + code, { headers })
                     .then(r => r.json())
-                    .then(d => { 
+                    .then(d => {
                         if (d.image_url && d.image_url !== img.src) {
-                            img.src = d.image_url; 
+                            img.src = d.image_url;
                         } else {
                             tryFixMirror(img);
                         }
@@ -1800,6 +1923,206 @@
         }, true);
 
         bootstrap();
+
+        function exportFullPDF() {
+            document.getElementById('exportCount').innerText = filteredData.length;
+            document.getElementById('exportModal').style.display = 'flex';
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').style.display = 'none';
+        }
+
+        function startExport() {
+            closeExportModal();
+            const win = window.open('', '_blank');
+            if (!win) { alert("Please allow popups!"); return; }
+
+            // Group by Category Level A
+            const grouped = {};
+            filteredData.forEach(p => {
+                const catA = p["Category Level A"] || 'Uncategorized';
+                if (!grouped[catA]) grouped[catA] = [];
+                grouped[catA].push(p);
+            });
+
+            // Sort Category names
+            const sortedCats = Object.keys(grouped).sort();
+
+            // Get current styles
+            const styles = Array.from(document.styleSheets)
+                .map(s => {
+                    try { return Array.from(s.cssRules).map(r => r.cssText).join('\n'); }
+                    catch (e) { return ''; }
+                }).join('\n');
+
+            const headerHtml = document.querySelector('.navbar').outerHTML;
+            const footerHtml = document.querySelector('.main-footer').outerHTML;
+
+            let fullContentHtml = '';
+            sortedCats.forEach(catName => {
+                let gridHtml = '';
+                grouped[catName].forEach(p => {
+                    const nameAr = p["أسم المنتج"] || p["Item Name Ar"] || p["Product Name Ar"] || '';
+                    const nameEn = p["Item Description"] || p["Item Name En"] || '';
+                    const brand = p.Brand || 'Generic';
+                    const isOwnBrand = !!p["Own Brand"];
+                    const catD = p["Category Level D"] || '';
+                    
+                    // Standard Image Selection with Live DOM Sync
+                    let currentImg = getBestImg(p);
+                    const liveImg = document.querySelector(`img[data-code="${p.Code}"]`);
+                    if (liveImg && liveImg.src && !liveImg.src.includes('placeholder')) {
+                        currentImg = liveImg.src;
+                    }
+
+                    gridHtml += `
+                        <div class="product-card">
+                            <div style="background:var(--primary); color:white; font-size:10px; padding:4px; font-weight:800; border-radius:5px 5px 0 0; text-align:center;">
+                                ${catName} ${catD ? '| ' + catD : ''}
+                            </div>
+                            <div class="img-stack">
+                                ${isOwnBrand ? `<div class="own-brand-badge" style="font-size:6px; top:1px; left:1px; padding:1px 3px;">✨ OWN BRAND</div>` : ''}
+                                <div class="code-badge">#${p.Code}</div>
+                                <img src="${currentImg}" data-code="${p.Code}">
+                            </div>
+                            <div class="card-details">
+                                <div class="name-en" style="color:#1e293b; font-weight:800; font-size:0.95rem; margin-bottom:2px;">${nameEn}</div>
+                                <div class="name-ar" style="color:var(--primary); font-weight:900; font-size:1rem; line-height:1.2;">${nameAr}</div>
+                                <span class="brand-text" style="margin-top:4px; display:block;">${brand}</span>
+                            </div>
+                            <div class="price-row">
+                                <div class="price-val">
+                                    ${p["Unit Price"] || '0.00'}
+                                    <img src="${RIYAL_SVG}" class="riyal-img">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                fullContentHtml += `
+                    <div class="category-section" style="break-inside: avoid-page; margin-bottom:40px;">
+                        <div style="grid-column: 1 / -1; background: #334155; color: white; padding: 12px 20px; font-size: 1.2rem; font-weight: 900; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #fbbf24; text-transform: uppercase; letter-spacing: 2px;">
+                            📁 ${catName}
+                        </div>
+                        <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                            ${gridHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            win.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>MONO PDF EXPORT</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+                    <style>
+                        ${styles}
+                        body { background: #0f172a !important; color: white !important; padding: 15px !important; min-height: auto !important; overflow: visible !important; font-family: 'Roboto', 'Cairo', sans-serif; }
+                        .no-print { display: block; }
+                        .main-footer { margin: 0 0 20px 0 !important; padding: 15px !important; background: rgba(30, 41, 59, 0.5) !important; border-radius: 12px !important; }
+                        @media print {
+                            body { padding: 0 !important; background: #0f172a !important; overflow: visible !important; height: auto !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                            .navbar { margin-bottom: 20px !important; }
+                            .main-footer { 
+                                margin: 10px 0 30px 0 !important; 
+                                break-inside: avoid; 
+                                page-break-inside: avoid; 
+                                background: #1e293b !important; 
+                                border-radius: 15px !important; 
+                                border: 1px solid rgba(255,255,255,0.1) !important;
+                                padding: 20px !important;
+                                position: relative !important;
+                                display: block !important;
+                            }
+                            .footer-content { 
+                                display: grid !important; 
+                                grid-template-columns: repeat(4, 1fr) !important; 
+                                gap: 10px !important; 
+                            }
+                            .footer-section { 
+                                padding: 15px !important; 
+                                background: rgba(255,255,255,0.03) !important; 
+                                border-radius: 12px !important;
+                                border-left: 4px solid !important;
+                                backdrop-filter: blur(5px) !important;
+                            }
+                            .category-section { break-inside: auto !important; page-break-inside: auto !important; }
+                            .product-card { break-inside: avoid; page-break-inside: avoid; }
+                            .no-print { display: none !important; }
+                            .product-grid { overflow: visible !important; height: auto !important; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print" style="position:fixed; top:20px; right:20px; z-index:10000; display: flex; gap: 10px;">
+                        <button id="loadingStatus" style="padding:15px 30px; background:#fbbf24; color:#1e293b; border:none; border-radius:10px; font-weight:900; cursor:wait;">LOADING IMAGES... 🖼️</button>
+                        <button id="printBtn" onclick="window.print()" style="padding:15px 30px; background:#10b981; color:white; border:none; border-radius:10px; font-weight:900; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.3); display:none;">PRINT THIS PAGE 🖨️</button>
+                    </div>
+                    ${headerHtml}
+                    
+                    <!-- Branded Header for First Page -->
+                    <div style="margin-bottom: 40px; break-inside: avoid;">
+                        ${footerHtml}
+                    </div>
+
+                    <div class="main-export-container">
+                        ${fullContentHtml}
+                    </div>
+                    
+                    <script>
+                        window.onload = () => {
+                            const images = Array.from(document.querySelectorAll('img'));
+                            const total = images.length;
+                            let loaded = 0;
+                            
+                            if (total === 0) {
+                                showPrintBtn();
+                                return;
+                            }
+
+                            images.forEach(img => {
+                                img.onerror = () => {
+                                    if (!img.dataset.retried) {
+                                        img.dataset.retried = "true";
+                                        const code = img.dataset.code || img.src.match(/\d{6}/)?.[0];
+                                        if (code) {
+                                            img.src = "${WORKER_IMG}" + code + "&retry=" + Date.now();
+                                        }
+                                    }
+                                };
+                                if (img.complete) {
+                                    loaded++;
+                                    checkDone();
+                                } else {
+                                    img.onload = () => { loaded++; checkDone(); };
+                                }
+                            });
+
+                            function checkDone() {
+                                if (loaded >= total) {
+                                    showPrintBtn();
+                                }
+                            }
+
+                            function showPrintBtn() {
+                                document.getElementById('loadingStatus').style.display = 'none';
+                                document.getElementById('printBtn').style.display = 'block';
+                            }
+                            
+                            // Timeout fallback
+                            setTimeout(showPrintBtn, 5000);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            win.document.close();
+        }
     </script>
 </body>
 
