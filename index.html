@@ -1313,37 +1313,6 @@
             }
         });
 
-        function filterData() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-
-            filteredData = masterData.filter(p => {
-                // Excel Filter
-                if (isExcelFilterActive && !excelCodes.includes(p.Code.toString())) {
-                return false;
-            }
-
-            // No Image Filter
-            const hasImg = !!(p.itemurl || p.itemURL || p.Image);
-            if (!showNoImages && !hasImg) {
-                return false;
-            }
-
-            const mq = !q || p.Code.toString().includes(q) ||
-                    (p["Item Description"] || "").toLowerCase().includes(q) ||
-                    (p["أسم المنتج"] || "").toLowerCase().includes(q);
-
-                let mf = true;
-                for (let field in selectedFilters) {
-                    if (selectedFilters[field].length > 0 && !selectedFilters[field].includes(p[field])) { mf = false; break; }
-                }
-                return mq && mf;
-            });
-
-            displayedCount = 0;
-            currentPage = 1;
-            document.getElementById('mainContainer').innerHTML = '';
-            if (isPageMode) renderPage(); else renderBatch();
-        }
 
         function toggleNoImages(checked) {
             showNoImages = checked;
@@ -1526,6 +1495,50 @@
             }
         }
 
+        function filterData() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredData = masterData.filter(p => {
+                // Excel Filter
+                if (isExcelFilterActive && !excelCodes.includes(p.Code.toString())) {
+                    return false;
+                }
+
+                // No Image Filter
+                const hasImg = !!(p.itemurl || p.itemURL || p.Image);
+                if (!showNoImages && !hasImg) {
+                    return false;
+                }
+
+                const mq = !q || p.Code.toString().includes(q) ||
+                        (p["Item Description"] || "").toLowerCase().includes(q) ||
+                        (p["أسم المنتج"] || "").toLowerCase().includes(q);
+
+                let mf = true;
+                for (let field in selectedFilters) {
+                    if (selectedFilters[field].length > 0 && !selectedFilters[field].includes(p[field])) { mf = false; break; }
+                }
+                return mq && mf;
+            });
+
+            // 🔥 التعديل السحري الأول: ترتيب البيانات أبجدياً حسب الكاتيجوري A ثم D
+            filteredData.sort((a, b) => {
+                const catA_a = a["Category Level A"] || "UNCATEGORIZED";
+                const catA_b = b["Category Level A"] || "UNCATEGORIZED";
+                if (catA_a !== catA_b) return catA_a.localeCompare(catA_b);
+                
+                const catD_a = a["Category Level D"] || "OTHER";
+                const catD_b = b["Category Level D"] || "OTHER";
+                return catD_a.localeCompare(catD_b);
+            });
+
+            displayedCount = 0;
+            currentPage = 1;
+            document.getElementById('mainContainer').innerHTML = '';
+            if (isPageMode) renderPage(); else renderBatch();
+        }
+
+        // 🔥 التعديل السحري الثاني: دالة ذكية تقوم بتجميع الكروت في نفس الكاتيجوري حتى لو تم تحميلها في دفعات مختلفة
         function renderGrouped(items, container, append = false) {
             const groups = {};
             items.forEach(p => {
@@ -1547,33 +1560,48 @@
 
             Object.entries(groups).forEach(([catA, subCats]) => {
                 const colorA = getColor(catA);
-                const headerA = document.createElement('div');
-                headerA.className = 'category-header';
-                headerA.style.background = colorA;
-                headerA.textContent = catA;
-                targetContainer.appendChild(headerA);
+                let safeCatA = catA.replace(/[^a-zA-Z0-9]/g, '_');
+                
+                // البحث عما إذا كان جروب Category A موجود مسبقاً
+                let catAContainer = targetContainer.querySelector(`.cat-a-container[data-cata="${safeCatA}"]`);
+                if (!catAContainer || (!append && !isPageMode)) {
+                    catAContainer = document.createElement('div');
+                    catAContainer.className = 'cat-a-container';
+                    catAContainer.dataset.cata = safeCatA;
+                    catAContainer.style.display = 'contents'; // لكي لا يكسر الـ Grid في الطباعة
+                    
+                    const headerA = document.createElement('div');
+                    headerA.className = 'category-header';
+                    headerA.style.background = colorA;
+                    headerA.textContent = catA;
+                    catAContainer.appendChild(headerA);
+                    
+                    targetContainer.appendChild(catAContainer);
+                }
 
                 Object.entries(subCats).forEach(([catD, itemsList]) => {
                     const colorD = getColor(catD + "sub");
+                    let safeCatD = catD.replace(/[^a-zA-Z0-9]/g, '_');
 
-                    const groupDiv = document.createElement('div');
-                    groupDiv.className = 'cat-d-group';
+                    // البحث عما إذا كان جروب Category D موجود مسبقاً بداخل نفس Category A
+                    let groupDiv = catAContainer.querySelector(`.cat-d-group[data-catd="${safeCatD}"]`);
+                    
+                    if (!groupDiv || (!append && !isPageMode)) {
+                        groupDiv = document.createElement('div');
+                        groupDiv.className = 'cat-d-group';
+                        groupDiv.dataset.catd = safeCatD;
 
-                    const cardWidth = 295;
-                    const desktopCount = Math.min(itemsList.length, 4);
-                    if (!isPageMode) {
-                        groupDiv.style.width = `calc(${desktopCount} * ${cardWidth}px)`;
-                        groupDiv.style.maxWidth = "100%";
+                        groupDiv.innerHTML = `
+                            <div class="subcat-header" style="background:${colorD}">${catD}</div>
+                            <button class="nav-btn nav-prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">❮</button>
+                            <div class="product-items-flex"></div>
+                            <button class="nav-btn nav-next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">❯</button>
+                        `;
+                        catAContainer.appendChild(groupDiv);
                     }
 
-                    groupDiv.innerHTML = `
-                        <div class="subcat-header" style="background:${colorD}">${catD}</div>
-                        <button class="nav-btn nav-prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">❮</button>
-                        <div class="product-items-flex"></div>
-                        <button class="nav-btn nav-next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">❯</button>
-                    `;
-
                     const flexBox = groupDiv.querySelector('.product-items-flex');
+                    
                     itemsList.forEach((main) => {
                         const brand = main.Brand || 'Generic';
                         const card = document.createElement('div');
@@ -1582,8 +1610,6 @@
                         card.onclick = () => window.open(`https://www.al-dawaa.com/en/p/${main.Code}`, '_blank');
 
                         const nameAr = main["أسم المنتج"] || main["Item Name Ar"] || main["Product Name Ar"];
-                        
-                        // 🔥 التعديل هنا: تم إزالة الشرط، الآن الشريط سيُطبع في كل الكروت لتشكيل شريط متصل
                         const inlineHeaderHtml = `<div class="inline-header" style="background-color:${colorD} !important; border-bottom: 3px solid ${colorA} !important; color:white !important;">${catA} | ${catD}</div>`;
 
                         card.innerHTML = `
@@ -1605,11 +1631,18 @@
                         `;
                         flexBox.appendChild(card);
                     });
-                    targetContainer.appendChild(groupDiv);
+                    
+                    // حساب وتحديث العرض بشكل ديناميكي
+                    if (!isPageMode) {
+                        const totalCards = flexBox.children.length;
+                        const cardWidth = 295;
+                        const desktopCount = Math.min(totalCards, 4);
+                        groupDiv.style.width = `calc(${desktopCount} * ${cardWidth}px)`;
+                        groupDiv.style.maxWidth = "100%";
+                    }
                 });
             });
-        }
-        
+        }        
         function getBestImg(p) {
             let url = p.itemurl || p.itemURL || p.Image || "";
             if (!url) return `https://via.placeholder.com/1x1?text=FETCHING_${p.Code}`;
