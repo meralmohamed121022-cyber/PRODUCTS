@@ -521,8 +521,25 @@
                 gap: 10px !important;
                 width: 100% !important;
             }
-                         .category-header, .subcat-header {
-                display: none !important; /* Hide external headers in print */
+                             /* إخفاء العنوان الفرعي فقط */
+            .subcat-header {
+                display: none !important; 
+            }
+
+            /* إظهار الكاتيجوري A كعنوان رئيسي يملأ الصفحة (4 أعمدة) */
+            .category-header {
+                display: block !important;
+                grid-column: 1 / -1 !important; 
+                color: white !important;
+                padding: 12px 20px !important;
+                font-size: 1.5rem !important;
+                font-weight: 900 !important;
+                border-radius: 8px !important;
+                margin: 25px 0 15px !important; 
+                text-transform: uppercase !important;
+                text-align: center !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
 
             .inline-header {
